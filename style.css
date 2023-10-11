@@ -1,39 +1,19 @@
-:root {
-  --grid-size: 4; /* Liczba wierszy i kolumn w siatce */
+*, *::before, *::after {
+  box-sizing: border-box;
+  font-family: Gotham Rounded, sans-serif;
+  font-weight: normal;
 }
 
 body {
-  
-  background-repeat: repeat;
-  display: flex;
-  height: 100vh;
-  padding: 0;
   margin: 0;
+  padding: 0;
+  background: linear-gradient(to left, #CBCE91FF, #EA738DFF);
+}
+.calculator-grid {
+  display: grid;
   justify-content: center;
   align-items: center;
-}
-
-#container {
-  display: grid;
-  grid-gap: 1em;
-  grid-template-rows: repeat(var(--grid-size), 1fr);
-  grid-template-columns: repeat(var(--grid-size), 1fr); /* Użyj tej samej zmiennej dla liczby kolumn */
-  width: 300px; /* Określ szerokość kontenera (dostosuj do własnych preferencji) */
-  height: 300px; /* Określ wysokość kontenera (dostosuj do własnych preferencji) */
-  margin: 0 auto; /* Wyśrodkuj kontener */
-}
-
-.grid-item {
-  padding: 1em;
-  border: 1px solid #ddd;
-  text-align: center;
-}
-
-.my-color-class {
-  background-color: blue;
-}
-
-.grid-item:hover {
-  background-color: black;
-  transition: ease 0.1s all;
-}
+  min-height: 100vh;
+  grid-template-columns: repeat(4, 100px);
+  grid-template-rows: minmax(100px, auto) repeat(5, 100px);
+  }

@@ -1,19 +1,83 @@
+/* Resetowanie podstawowych stylów dla wszystkich elementów i ich pseudoelementów */
 *, *::before, *::after {
+  padding: 0;
+  margin: 0;
   box-sizing: border-box;
-  font-family: Gotham Rounded, sans-serif;
-  font-weight: normal;
 }
 
+/* Stylizacja tła strony */
 body {
-  margin: 0;
-  padding: 0;
-  background: linear-gradient(to left, #CBCE91FF, #EA738DFF);
-}
-.calculator-grid {
-  display: grid;
+  min-height: 100vh;
+  background-image: linear-gradient(to right bottom, #e4a7db, #d245db, #a22dce, #7d3ac5, #4d56bd);
+  display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
-  grid-template-columns: repeat(4, 100px);
-  grid-template-rows: minmax(100px, auto) repeat(5, 100px);
-  }
+  font-family: Arial, sans-serif;
+}
+
+/* Stylizacja głównego kontenera kalkulatora */
+.calculator {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 5px;
+  width: 300px;
+  background-color: #333;
+  border: 1px solid #000;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+/* Stylizacja wyniku kalkulatora */
+.output {
+  grid-column: 1 / span 4;
+  background-color: #fff;
+  padding: 10px;
+  text-align: right;
+  font-size: 24px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  color: #333;
+}
+
+/* Stylizacja przycisków kalkulatora */
+button {
+  background-color: #555;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 20px;
+  font-size: 24px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+/* Zmiana koloru przycisku po najechaniu kursorem myszy */
+button:hover {
+  background-color: #333;
+}
+
+/* Stylizacja przycisków, które zajmują dwie kolumny */
+button.span-two {
+  grid-column: span 2;
+}
+
+/* Specyficzne style dla różnych typów przycisków */
+button.AC {
+  background-color: #F44336; /* Przycisk "AC" */
+}
+
+button.DEL {
+  background-color: #FF9800; /* Przycisk "DEL" */
+}
+
+button.equal {
+  background-color: #2196F3; /* Przycisk "=" */
+}
+
+button.number {
+  background-color: #444; /* Przyciski z cyframi */
+}
+
+button.operator {
+  background-color: #FF9800; /* Przyciski z operatorami */
+}

@@ -1,10 +1,11 @@
-let previousOperand = document.querySelector('.previous-operand'); 
-let currentOperand = document.querySelector('.current-operand'); 
-const clear = document.querySelector('.clear');
-const operators = document.querySelectorAll('.operator'); 
+let previousOperand = document.querySelector('.previous-operand');
+let currentOperand = document.querySelector('.current-operand');
+const clearBtn = document.querySelector('.clear');
+const operators = document.querySelectorAll('.operator');
 const operatorButton = document.querySelectorAll('.button');
 const equalButton = document.querySelector('.equal');
 const mathSign = document.querySelector('.mathSign');
+let re = 0;
 
 function displayNumbers() {
     if (this.textContent === '.' && currentOperand.innerHTML.includes('.')) return;
@@ -19,46 +20,61 @@ function operate() {
         return;
     }
 
-    const operator = this.textContent;
-    const current = parseFloat(currentOperand.innerHTML);
-    const previous = parseFloat(previousOperand.innerHTML);
-
-    let result;
-    switch (operator) {
-        case '+':
-            result = previous + current;
-            break;
-        case '-':
-            result = previous - current;
-            break;
-        case '*':
-            result = previous * current;
-            break;
-        case '/':
-            if (current === 0) {
-                result = 'Error';
-            } else {
-                result = previous / current;
-            }
-            break;
-        default:
-            result = current;
+    if (mathSign.innerHTML !== '') {
+        showResult();
     }
-
-    previousOperand.innerHTML = result;
+    
+    previousOperand.innerHTML = currentOperand.innerHTML;
+    mathSign.innerHTML = this.textContent;
     currentOperand.innerHTML = '';
 }
 
 function clearScreen() {
-    previousOperand.innerHTML = '0';
-    currentOperand.innerHTML = '0';
-    result = '';
+    re = '';
+    currentOperand.innerHTML = '';
+    previousOperand.innerHTML = '';
+    mathSign.innerHTML = '';
 }
 
 function showResult() {
-    const res = operate();
-    
+    if (previousOperand.innerHTML === '' || currentOperand.innerHTML === '') return;
+
+    const a = parseFloat(currentOperand.innerHTML);
+    const b = parseFloat(previousOperand.innerHTML);
+    const operator = mathSign.innerHTML;
+
+    switch (operator) {
+        case '+':
+            result = b + a;
+            break;
+        case '-':
+            result = b - a;
+            break;
+        case 'x':
+            result = b * a;
+            break;
+        case ':':
+            if (a === 0) {
+                result = 'Error';
+            } else {
+                result = b / a;
+            }
+            break;
+        case '2^':
+            result = Math.pow(b, a);
+            break;
+    }
+
+    if (re === 'Error') {
+        currentOperand.innerHTML = re;
+    } else {
+        currentOperand.innerHTML = re.toString();
+    }
+
+    previousOperand.innerHTML = '';
+    mathSign.innerHTML = '';
 }
+
 
 operatorButton.forEach((button) => {
     button.addEventListener('click', displayNumbers);
@@ -68,5 +84,6 @@ operators.forEach((operator) => {
     operator.addEventListener('click', operate);
 });
 
-clear.addEventListener('click', clearScreen);
+clearBtn.addEventListener('click', clearScreen);
+
 equalButton.addEventListener('click', showResult);

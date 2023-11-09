@@ -1,82 +1,90 @@
-let previousOperand = document.querySelector('.previous-operand');
-let currentOperand = document.querySelector('.current-operand');
+let previousOperandElement = document.querySelector('.previousOperand');
+let currentOperandElement = document.querySelector('.currentOperand');
 const clearBtn = document.querySelector('.clear');
 const operators = document.querySelectorAll('.operator');
-const operatorButton = document.querySelectorAll('.button');
+const numberButtons = document.querySelectorAll('.button');
 const equalButton = document.querySelector('.equal');
-const mathSign = document.querySelector('.mathSign');
-let re = 0;
+const mathSignElement = document.querySelector('.mathSign');
+let result = 0;
 
 function displayNumbers() {
-    if (this.textContent === '.' && currentOperand.innerHTML.includes('.')) return;
-    if (this.textContent === '.' && currentOperand.innerHTML === '') return currentOperand.innerHTML = '0.';
+    const clickedButtonValue = this.textContent;
+    const currentOperandText = currentOperandElement.textContent;
 
-    currentOperand.innerHTML += this.textContent;
+    if (clickedButtonValue === '.' && currentOperandText.includes('.')) return;
+    if (clickedButtonValue === '.' && currentOperandText === '') return currentOperandElement.textContent = '0.';
+
+    currentOperandElement.textContent += clickedButtonValue;
 }
 
 function operate() {
-    if (currentOperand.innerHTML === '' && this.textContent === '-') {
-        currentOperand.innerHTML = '-';
+    const clickedOperator = this.textContent;
+
+    if (!currentOperandElement || !previousOperandElement || !mathSignElement) {
+        console.error('One or more elements not found.');
         return;
     }
 
-    if (mathSign.innerHTML !== '') {
+    if (currentOperandElement.textContent === '' && clickedOperator === '-') {
+        currentOperandElement.textContent = '-';
+        return;
+    }
+
+    if (mathSignElement !== '') {
         showResult();
     }
-    
-    previousOperand.innerHTML = currentOperand.innerHTML;
-    mathSign.innerHTML = this.textContent;
-    currentOperand.innerHTML = '';
+
+    previousOperandElement.textContent = currentOperandElement.textContent;
+    operator = clickedOperator;
+    mathSignElement.textContent = operator;
+    currentOperandElement.textContent = '';
 }
 
 function clearScreen() {
-    re = '';
-    currentOperand.innerHTML = '';
-    previousOperand.innerHTML = '';
-    mathSign.innerHTML = '';
+    result = 0;
+    currentOperandElement.textContent = '';
+    previousOperandElement.textContent = '';
+    mathSignElement.textContent = '';
 }
 
 function showResult() {
-    if (previousOperand.innerHTML === '' || currentOperand.innerHTML === '') return;
+    const previousOperandValue = parseFloat(previousOperandElement.textContent);
+    const currentOperandValue = parseFloat(currentOperandElement.textContent);
 
-    const a = parseFloat(currentOperand.innerHTML);
-    const b = parseFloat(previousOperand.innerHTML);
-    const operator = mathSign.innerHTML;
+    if (isNaN(previousOperandValue) || isNaN(currentOperandValue)) return;
 
-    switch (operator) {
+    switch (operators) {
         case '+':
-            result = b + a;
+            result = previousOperandValue + currentOperandValue;
             break;
         case '-':
-            result = b - a;
+            result = previousOperandValue - currentOperandValue;
             break;
-        case 'x':
-            result = b * a;
+        case '*':
+            result = previousOperandValue * currentOperandValue;
             break;
-        case ':':
-            if (a === 0) {
-                result = 'Error';
+        case '/':
+            if (currentOperandValue !== 0) {
+                result = previousOperandValue / currentOperandValue;
             } else {
-                result = b / a;
+                alert("Nie można dzielić przez zero!");
+                clearScreen();
+                return;
             }
             break;
-        case '2^':
-            result = Math.pow(b, a);
-            break;
+        default:
+            return;
     }
 
-    if (re === 'Error') {
-        currentOperand.innerHTML = re;
-    } else {
-        currentOperand.innerHTML = re.toString();
-    }
 
-    previousOperand.innerHTML = '';
-    mathSign.innerHTML = '';
+    result = Math.round(result * 10000) / 10000;
+
+    currentOperandElement.textContent = result;
+    previousOperandElement.textContent = '';
+    mathSignElement.textContent = '';
 }
 
-
-operatorButton.forEach((button) => {
+numberButtons.forEach((button) => {
     button.addEventListener('click', displayNumbers);
 });
 

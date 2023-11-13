@@ -47,33 +47,30 @@ function clearScreen() {
     mathSignElement.textContent = '';
 }
 
-function showResult() {
-    const previousOperandValue = parseFloat(previousOperandElement.textContent);
-    const currentOperandValue = parseFloat(currentOperandElement.textContent);
+function showResult () {
+    if(previousOperandElement.innerHTML === '' || currentOperandElement.innerHTML === '') return;
 
-    if (isNaN(previousOperandValue) || isNaN(currentOperandValue)) return;
+    let a = Number(currentOperandElement.innerHTML);
+    let b = Number(previousOperandElement.innerHTML);
+    let operator = mathSignElement.innerHTML;
 
-    switch (operators) {
+
+    switch(operator) {
         case '+':
-            result = previousOperandValue + currentOperandValue;
-            break;
+        result = a + b;
+        break;
         case '-':
-            result = previousOperandValue - currentOperandValue;
-            break;
-        case '*':
-            result = previousOperandValue * currentOperandValue;
-            break;
-        case '/':
-            if (currentOperandValue !== 0) {
-                result = previousOperandValue / currentOperandValue;
-            } else {
-                alert("Nie można dzielić przez zero!");
-                clearScreen();
-                return;
-            }
-            break;
-        default:
-            return;
+        result = b - a;
+        break;
+        case 'x':
+        result = a * b;
+        break;
+        case ':':
+        result = b / a;
+        break;
+        case '2^':
+        result = b ** a;
+        break;
     }
 
 

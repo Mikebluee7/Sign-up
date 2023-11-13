@@ -1,78 +1,82 @@
 
-
-/* Stylizacja tła strony */
 body {
   min-height: 100vh;
   background-image: linear-gradient(to right bottom, #e4a7db, #d245db, #a22dce, #7d3ac5, #4d56bd);
   display: flex;
   justify-content: center;
   align-items: center;
-  font-family: Arial, sans-serif;
+  margin: 0; /* Reset default margin */
 }
 
-/* Stylizacja głównego kontenera kalkulatora */
+
 .calculator {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-gap: 10px;
-  width: 300px;
+  gap: 10px;
+  max-width: 400px; 
+  width: 100%;
   background-color: #333;
   border: 1px solid #000;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  padding: 10px; /* Added padding for better spacing */
 }
 
-/* Stylizacja wyniku kalkulatora */
+
 .output {
-  grid-column: 1 / span 4;
-  background-color: #fff;
-  padding: 25px;
+  grid-column: span 4;
+  min-height: 50px;
+  background-color: rgba(29, 27, 27, 0.151);
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+  color: white;
+  word-break: break-all;
   text-align: right;
-  font-size: 24px;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
-  color: #333;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 10px;
+  font-weight: bold;
 }
 
-/* Stylizacja przycisków kalkulatora */
+
 button {
   background-color: #555;
   color: #fff;
   border: none;
   border-radius: 10px;
-  padding: 20px;
-  font-size: 24px;
+  padding: 15px; 
+  font-size: 18px; 
   cursor: pointer;
   transition: background-color 0.2s;
 }
 
-/* Zmiana koloru przycisku po najechaniu kursorem myszy */
+
 button:hover {
   background-color: #333;
 }
 
-/* Stylizacja przycisków, które zajmują dwie kolumny */
+
 button.span-two {
   grid-column: span 2;
 }
 
-/* Specyficzne style dla różnych typów przycisków */
+
 button.AC {
-  background-color: #F44336; /* Przycisk "AC" */
+  background-color: #F44336;
 }
 
 button.DEL {
-  background-color: #FF9800; /* Przycisk "DEL" */
+  background-color: #FF9800; 
 }
 
 button.equal {
-  background-color: #2196F3; /* Przycisk "=" */
+  background-color: #2196F3;
 }
 
 button.number {
-  background-color: #444; /* Przyciski z cyframi */
+  background-color: #444;
 }
 
 button.operator {
-  background-color: #FF9800; /* Przyciski z operatorami */
-} */
+  background-color: #FF9800; 
+}

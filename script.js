@@ -24,20 +24,21 @@ function operate() {
         console.error('One or more elements not found.');
         return;
     }
-
+    
+    let operator = clickedOperator;
+  
     if (currentOperandElement.textContent === '' && clickedOperator === '-') {
         currentOperandElement.textContent = '-';
         return;
     }
 
-    if (mathSignElement !== '') {
+    if (mathSignElement.textContent !== '') {
         showResult();
     }
 
-    previousOperandElement.textContent = currentOperandElement.textContent;
-    operator = clickedOperator;
-    mathSignElement.textContent = operator;
-    currentOperandElement.textContent = '';
+    previousOperandElement.innerHTML = currentOperandElement.innerHTML;
+    mathSignElement.innerHTML = clickedOperator;
+    currentOperandElement.innerHTML = '';
 }
 
 function clearScreen() {
@@ -47,48 +48,55 @@ function clearScreen() {
     mathSignElement.textContent = '';
 }
 
-function showResult () {
-    if(previousOperandElement.innerHTML === '' || currentOperandElement.innerHTML === '') return;
+function showResult() {
+   
 
-    let a = Number(currentOperandElement.innerHTML);
-    let b = Number(previousOperandElement.innerHTML);
-    let operator = mathSignElement.innerHTML;
+    if (previousOperandElement.textContent === '' || currentOperandElement.textContent === '') return;
 
+    let a = Number(currentOperandElement.textContent);
+    let b = Number(previousOperandElement.textContent);
+    let operator = mathSignElement.textContent;
 
-    switch(operator) {
+    switch (operator) {
         case '+':
-        result = a + b;
-        break;
+            result = b + a;
+            break;
         case '-':
-        result = b - a;
-        break;
+            result = b - a;
+            break;
         case 'x':
-        result = a * b;
-        break;
+            result = b * a;
+            break;
         case ':':
-        result = b / a;
-        break;
+            result = b / a;
+            break;
         case '2^':
-        result = b ** a;
-        break;
+            result = Math.pow(b, a);
+            break;
+        default:
+            return;
     }
 
-
     result = Math.round(result * 10000) / 10000;
+
 
     currentOperandElement.textContent = result;
     previousOperandElement.textContent = '';
     mathSignElement.textContent = '';
-}
 
+}
+console.log(result);
 numberButtons.forEach((button) => {
     button.addEventListener('click', displayNumbers);
 });
 
-operators.forEach((operator) => {
-    operator.addEventListener('click', operate);
-});
+operators.forEach((button) => button.addEventListener('click', operate))
 
 clearBtn.addEventListener('click', clearScreen);
 
 equalButton.addEventListener('click', showResult);
+
+numberButtons.forEach((button) => {
+    button.addEventListener('click', displayNumbers)
+})
+

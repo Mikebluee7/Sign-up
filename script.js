@@ -1,96 +1,114 @@
-let previousOperandElement = document.querySelector('.previousOperand');
-let currentOperandElement = document.querySelector('.currentOperand');
+let previousOperand = document.querySelector('.previousOperand');
+let currentOperand = document.querySelector('.currentOperand');
 const clearBtn = document.querySelector('.clear');
 const operators = document.querySelectorAll('.operator');
 const numberButtons = document.querySelectorAll('.button');
 const equalButton = document.querySelector('.equal');
 const mathSignElement = document.querySelector('.mathSign');
-let result = 0;
+let result = '';
+let operator = '';
 
 function displayNumbers() {
-    const clickedButtonValue = this.textContent;
-    const currentOperandText = currentOperandElement.textContent;
+    if (mathSignElement.innerHTML !== '') {
+        currentOperand.innerHTML = '';
+    }
 
-    if (clickedButtonValue === '.' && currentOperandText.includes('.')) return;
-    if (clickedButtonValue === '.' && currentOperandText === '') return currentOperandElement.textContent = '0.';
+    if (this.textContent === '.' && currentOperand.innerHTML.includes('.')) return;
+    if (this.textContent === '.' && currentOperand.innerHTML === '') return currentOperand.innerHTML = '.0';
 
-    currentOperandElement.textContent += clickedButtonValue;
+    currentOperand.innerHTML += this.textContent;
 }
 
+
+
 function operate() {
-    const clickedOperator = this.textContent;
-
-    if (!currentOperandElement || !previousOperandElement || !mathSignElement) {
-        console.error('One or more elements not found.');
+    if (currentOperand.innerHTML === '' && this.textContent === '-') {
+        currentOperand.innerHTML = '-';
+        return;
+    } else if (currentOperand.innerHTML === '') {
         return;
     }
+
     
-    let operator = clickedOperator;
-  
-    if (currentOperandElement.textContent === '' && clickedOperator === '-') {
-        currentOperandElement.textContent = '-';
-        return;
-    }
-
-    if (mathSignElement.textContent !== '') {
+    if (mathSignElement.innerHTML !== '') {
         showResult();
     }
 
-    previousOperandElement.innerHTML = currentOperandElement.innerHTML;
-    mathSignElement.innerHTML = clickedOperator;
-    currentOperandElement.innerHTML = '';
+    
+    operator = this.textContent;
+    mathSignElement.innerHTML = operator; 
+    console.log('Set operator:', operator);
+
+    
+    previousOperand.innerHTML = currentOperand.innerHTML;
+
+    
+    currentOperand.innerHTML = '';
 }
 
-function clearScreen() {
-    result = 0;
-    currentOperandElement.textContent = '';
-    previousOperandElement.textContent = '';
-    mathSignElement.textContent = '';
-}
 
 function showResult() {
-   
+    
 
-    if (previousOperandElement.textContent === '' || currentOperandElement.textContent === '') return;
+    if (previousOperand.innerHTML === '' || currentOperand.innerHTML === '') return;
 
-    let a = Number(currentOperandElement.textContent);
-    let b = Number(previousOperandElement.textContent);
-    let operator = mathSignElement.textContent;
+    console.log('currentOperand.innerHTML:', currentOperand.innerHTML);
+    console.log('previousOperand.innerHTML:', previousOperand.innerHTML);
 
-    switch (operator) {
+    let a = Number(currentOperand.innerHTML);
+    let b = Number(previousOperand.innerHTML);
+    
+
+    console.log('a:', a);
+    console.log('b:', b);
+    console.log('operator:', operator);
+
+    switch(operator){
         case '+':
-            result = b + a;
-            break;
+        result = a + b;
+        break;
         case '-':
-            result = b - a;
-            break;
-        case 'x':
-            result = b * a;
-            break;
+        result = b - a;
+        break;
+        case '*':
+        result = a * b;
+        break;
         case ':':
-            result = b / a;
-            break;
+        result = b / a;
+        break;
         case '2^':
-            result = Math.pow(b, a);
-            break;
-        default:
-            return;
+        result = b ** a;
+        break;
     }
 
-    result = Math.round(result * 10000) / 10000;
 
+    console.log('result:', result);
 
-    currentOperandElement.textContent = result;
-    previousOperandElement.textContent = '';
-    mathSignElement.textContent = '';
+    currentOperand.innerHTML = result;
+
+    previousOperand.innerHTML = '';
+    mathSignElement.innerHTML = '';
+
+    
 
 }
-console.log(result);
-numberButtons.forEach((button) => {
-    button.addEventListener('click', displayNumbers);
-});
 
-operators.forEach((button) => button.addEventListener('click', operate))
+
+function clearScreen () {
+    result = '';
+    currentOperand.innerHTML = '';
+    previousOperand.innerHTML = '';
+    mathSignElement.innerHTML = '';
+
+}
+
+
+
+
+operators.forEach((button) => button.addEventListener('click', function(){
+    operate();
+    console.log('Clicked operator button:', this.textContent);
+}));
 
 clearBtn.addEventListener('click', clearScreen);
 

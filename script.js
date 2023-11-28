@@ -11,12 +11,14 @@ let operator = '';
 function displayNumbers() {
     if (mathSignElement.innerHTML !== '') {
         currentOperand.innerHTML = '';
+        mathSignElement.innerHTML = '';
     }
 
-    if (this.textContent === '.' && currentOperand.innerHTML.includes('.')) return;
-    if (this.textContent === '.' && currentOperand.innerHTML === '') return currentOperand.innerHTML = '.0';
-
-    currentOperand.innerHTML += this.textContent;
+    if (this.textContent === '.' && !currentOperand.innerHTML.includes('.')) {
+        currentOperand.innerHTML += this.textContent;
+    } else if (this.textContent !== '.') {
+        currentOperand.innerHTML += this.textContent;
+    }
 }
 
 
@@ -29,20 +31,16 @@ function operate() {
         return;
     }
 
-    
     if (mathSignElement.innerHTML !== '') {
         showResult();
     }
 
-    
     operator = this.textContent;
     mathSignElement.innerHTML = operator; 
     console.log('Set operator:', operator);
 
-    
     previousOperand.innerHTML = currentOperand.innerHTML;
 
-    
     currentOperand.innerHTML = '';
 }
 
@@ -52,16 +50,11 @@ function showResult() {
 
     if (previousOperand.innerHTML === '' || currentOperand.innerHTML === '') return;
 
-    console.log('currentOperand.innerHTML:', currentOperand.innerHTML);
-    console.log('previousOperand.innerHTML:', previousOperand.innerHTML);
 
     let a = Number(currentOperand.innerHTML);
     let b = Number(previousOperand.innerHTML);
     
 
-    console.log('a:', a);
-    console.log('b:', b);
-    console.log('operator:', operator);
 
     switch(operator){
         case '+':
@@ -82,7 +75,7 @@ function showResult() {
     }
 
 
-    console.log('result:', result);
+ 
 
     currentOperand.innerHTML = result;
 
@@ -93,22 +86,17 @@ function showResult() {
 
 }
 
-
-function clearScreen () {
+function clearScreen() {
     result = '';
     currentOperand.innerHTML = '';
     previousOperand.innerHTML = '';
     mathSignElement.innerHTML = '';
-
+    operator = ''; 
 }
 
 
+operators.forEach((button) => button.addEventListener('click', operate));
 
-
-operators.forEach((button) => button.addEventListener('click', function(){
-    operate();
-    console.log('Clicked operator button:', this.textContent);
-}));
 
 clearBtn.addEventListener('click', clearScreen);
 

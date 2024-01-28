@@ -1,43 +1,51 @@
-@font-face {
-    font-family: 'Nordic';
-    src: url('C:\\Users\\micha\\Documents\\Projects\\Signup\\Norse-Bold.woff') format('woff');
-    font-weight: normal;
-    font-style: normal; 
-}
-body {
-    font-family: 'Nordic', sans-serif; 
-}
 
-.sidebar-content img {
-    width: 40%;
-    height: auto;
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f9fa;
 }
 
 .content {
     display: flex;
+    height:100vh; 
 }
 
 .sidebar {
-    width: 50%;
-    padding: 50px;
+    flex: 1;
+    color: #ffffff;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    text-align: center;
+    height: 100%;
 }
 
-.sidebar-content {
-    text-align: center;
+.sidebar-content img {
+    max-width: 100%;
+    display: block;
+    margin: 0;
+    height: auto;
 }
 
 .mainContent {
-    flex: 1;
+    flex: 2;
     padding: 20px;
-    box-sizing: border-box;
     display: flex;
-    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .formContent {
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    width: 100%;
     max-width: 400px;
-    margin: 0 auto;
-    align-self: flex-start; /* Przesuń .formContent na lewą stronę */
+    text-align: center;
 }
 
 form {
@@ -46,25 +54,33 @@ form {
 }
 
 .input {
-    margin-bottom: 15px;
+    margin-bottom: 20px;
 }
 
-.input label {
-    display: block;
+label {
+    font-weight: bold;
     margin-bottom: 5px;
+    display: block;
+    color: #495057;
 }
 
 .inputText {
     width: 100%;
-    padding: 8px;
+    padding: 10px;
     box-sizing: border-box;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
 }
 
 .btn {
+    background-color: #007bff;
+    color: #ffffff;
     padding: 10px;
-    background-color: #4caf50;
-    color: #fff;
     border: none;
+    border-radius: 5px;
     cursor: pointer;
 }
 
+.btn:hover {
+    background-color: #0056b3;
+}

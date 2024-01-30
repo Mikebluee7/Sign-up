@@ -1,17 +1,14 @@
 let passwordField = document.getElementById('password');
 let confirmPasswordField = document.getElementById('confirmPassword');
 let minLength = 8;
-let passwordValue = passwordField.value;
-let confirmPasswordValue = confirmPasswordField.value;
-
 
 
 function validate() {
+    let passwordValue = passwordField.value;
+    let confirmPasswordValue = confirmPasswordField.value;
 
-
-if (passwordValue.minLength < minLength){
+    if (passwordValue.length < minLength){
     alert('Hasło jest za krótkie');
     return;
-}
-print('123')
-}
+    }
+   }
